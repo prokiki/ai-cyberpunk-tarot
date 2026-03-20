@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据先知 — AI 赛博塔罗</title>
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./base.css">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Animated background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Main app -->
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <svg class="logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="数据先知 Logo">
+          <rect x="2" y="2" width="36" height="36" rx="4" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="20" cy="16" r="6" stroke="var(--cyan)" stroke-width="1.5"/>
+          <path d="M14 28 L20 20 L26 28" stroke="var(--cyan)" stroke-width="1.5" fill="none"/>
+          <line x1="20" y1="10" x2="20" y2="4" stroke="var(--magenta)" stroke-width="1"/>
+          <line x1="14" y1="13" x2="9" y2="10" stroke="var(--magenta)" stroke-width="1"/>
+          <line x1="26" y1="13" x2="31" y2="10" stroke="var(--magenta)" stroke-width="1"/>
+          <circle cx="20" cy="16" r="2" fill="var(--cyan)"/>
+          <line x1="8" y1="34" x2="32" y2="34" stroke="var(--border-glow)" stroke-width="1" stroke-dasharray="2 3"/>
+        </svg>
+        <span class="logo-text">数据先知</span>
+      </div>
+      <p class="tagline">CYBERNETIC TAROT ORACLE</p>
+    </header>
+
+    <!-- Landing / Mode Select -->
+    <section id="screen-landing" class="screen active">
+      <div class="landing-content">
+        <h1 class="hero-title">
+          <span class="glow-text">探索数据洪流中</span>
+          <span class="glow-text delay">隐藏的命运密码</span>
+        </h1>
+        <p class="hero-sub">22 张大阿尔卡纳牌 · AI 神经网络解读 · 赛博占卜术</p>
+
+        <div class="question-input-area">
+          <label for="user-question" class="input-label">输入你的问题（可选）</label>
+          <input type="text" id="user-question" class="cyber-input" placeholder="在数据之海中，你想探寻什么...">
+        </div>
+
+        <div class="mode-buttons">
+          <button class="cyber-btn primary" onclick="startReading('single')">
+            <span class="btn-icon">◈</span>
+            <span class="btn-content">
+              <span class="btn-title">单张抽牌</span>
+              <span class="btn-desc">一张牌，一个启示</span>
+            </span>
+          </button>
+          <button class="cyber-btn primary" onclick="startReading('three')">
+            <span class="btn-icon">◈◈◈</span>
+            <span class="btn-content">
+              <span class="btn-title">三牌阵</span>
+              <span class="btn-desc">过去 · 现在 · 未来</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card Selection -->
+    <section id="screen-select" class="screen">
+      <div class="select-content">
+        <h2 class="section-title" id="select-instruction">在数据流中选择你的命运</h2>
+        <p class="section-sub" id="select-count"></p>
+        <div class="card-grid" id="card-grid"></div>
+      </div>
+    </section>
+
+    <!-- Reading Result -->
+    <section id="screen-result" class="screen">
+      <div class="result-content">
+        <h2 class="section-title">神经网络解析完成</h2>
+        <div class="drawn-cards" id="drawn-cards"></div>
+        <div class="reading-panel" id="reading-panel">
+          <div class="reading-loader" id="reading-loader">
+            <div class="loader-ring"></div>
+            <p>数据先知正在解析命运矩阵...</p>
+          </div>
+          <div class="reading-text" id="reading-text"></div>
+        </div>
+        <button class="cyber-btn secondary" onclick="resetApp()" id="restart-btn" style="display:none;">
+          <span class="btn-icon">⟳</span>
+          <span class="btn-content">
+            <span class="btn-title">重新占卜</span>
+          </span>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+  </footer>
+
+  <script src="./tarot-data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
