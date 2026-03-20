@@ -64,6 +64,13 @@
           <input type="text" id="user-question" class="cyber-input" placeholder="在数据之海中，你想探寻什么...">
         </div>
 
+        <div class="model-select-area">
+          <label class="input-label">选择 AI 解读引擎</label>
+          <div class="model-selector" id="model-selector">
+            <div class="model-loading">正在探测可用神经网络...</div>
+          </div>
+        </div>
+
         <div class="mode-buttons">
           <button class="cyber-btn primary" onclick="startReading('single')">
             <span class="btn-icon">◈</span>
@@ -103,6 +110,7 @@
             <p>数据先知正在解析命运矩阵...</p>
           </div>
           <div class="reading-text" id="reading-text"></div>
+          <div class="reading-meta" id="reading-meta"></div>
         </div>
         <button class="cyber-btn secondary" onclick="resetApp()" id="restart-btn" style="display:none;">
           <span class="btn-icon">⟳</span>

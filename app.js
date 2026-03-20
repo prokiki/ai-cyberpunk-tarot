@@ -9,6 +9,45 @@ let currentMode = null;  // "single" or "three"
 let selectedIndices = [];
 let requiredCount = 0;
 let drawnCards = [];
+let selectedProvider = '';
+let selectedModel = '';
+let providersData = [];
+
+// ─── Load AI Providers ───
+(async function loadProviders() {
+  const selector = document.getElementById('model-selector');
+  try {
+    const res = await fetch(`${API}/api/providers`);
+    providersData = await res.json();
+    if (providersData.length === 0) {
+      selector.innerHTML = '<div class="model-loading">未检测到可用的 AI 服务，请配置 API Key</div>';
+      return;
+    }
+    selector.innerHTML = '';
+    let first = true;
+    providersData.forEach(provider => {
+      provider.models.forEach(model => {
+        const chip = document.createElement('button');
+        chip.className = 'model-chip' + (first ? ' active' : '');
+        chip.innerHTML = `<span class="chip-provider">${provider.name}</span><span class="chip-model">${model.label}</span>`;
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.model-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          selectedProvider = provider.id;
+          selectedModel = model.id;
+        });
+        if (first) {
+          selectedProvider = provider.id;
+          selectedModel = model.id;
+          first = false;
+        }
+        selector.appendChild(chip);
+      });
+    });
+  } catch (e) {
+    selector.innerHTML = '<div class="model-loading">神经网络探测失败，将使用默认引擎</div>';
+  }
+})();
 
 // ─── Screen Management ───
 function showScreen(id) {
@@ -165,7 +204,9 @@ async function fetchReading() {
           number: c.number,
           is_reversed: c.is_reversed
         })),
-        question: question
+        question: question,
+        provider: selectedProvider,
+        model: selectedModel
       })
     });
 
@@ -173,6 +214,12 @@ async function fetchReading() {
     loader.style.display = 'none';
     textEl.textContent = data.reading;
     textEl.classList.add('visible');
+    // Show provider info
+    const metaEl = document.getElementById('reading-meta');
+    if (data.provider) {
+      metaEl.textContent = `解读引擎：${data.provider}`;
+      metaEl.classList.add('visible');
+    }
     restartBtn.style.display = 'flex';
   } catch (err) {
     loader.style.display = 'none';
